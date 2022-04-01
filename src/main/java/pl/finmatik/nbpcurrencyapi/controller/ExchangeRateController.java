@@ -12,10 +12,8 @@ import pl.finmatik.nbpcurrencyapi.domain.Rate;
 import pl.finmatik.nbpcurrencyapi.service.CurrencyRestClientService;
 import pl.finmatik.nbpcurrencyapi.service.ExchangeRateService;
 
-
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,7 +29,13 @@ public class ExchangeRateController {
         this.exchangeRateService = exchangeRateService;
     }
 
-
+    @GetMapping("/table/{date}")
+    ResponseEntity<List<Rate>> getRatesForPreviousDay(@PathVariable(value = "date") final String date) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(currencyRestClientService.retrieveCurrencyTable(date));
+    }
 
     @GetMapping("/save/{date}")
     ResponseEntity<List<Rate>> saveRatesForDay(@PathVariable(value = "date") final String date) throws IOException {

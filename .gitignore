@@ -5,7 +5,11 @@ target/
 !**/src/test/**/target/
 
 ### Frontend ###
-**/src/ui
+**/src/ui/.vscode/
+**/src/ui/node-modules/
+**/src/ui/dist
+**/src/ui/.angular
+
 
 ### STS ###
 .apt_generated
