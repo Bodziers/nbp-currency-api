@@ -5,7 +5,7 @@
   <mat-card class="mat-card">
     <mat-card-title>Currency exchange rates</mat-card-title>
     <mat-card-actions [formGroup]="tableDateForm">
-<!--      date picker and button to select date and send request-->
+      <!--      date picker and button to select date and send request-->
       <mat-form-field appearance="fill">
         <mat-label>Choose a table date</mat-label>
         <input matInput formControlName="tblDate" [matDatepicker]="picker" (dateInput)="addDate('input', $event)">
@@ -13,6 +13,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="submitTableDate()" >Get exchange rates</button>
+      <button mat-raised-button color="warn" (click)="saveTableDate()" >Save exchange rates</button>
     </mat-card-actions>
     <mat-card-content>
       <div style="margin-top: 10px">
@@ -58,14 +59,49 @@
     </mat-card-content>
 
   </mat-card>
-  <mat-card>
+  <mat-card >
     <mat-card-title>Currency exchange calculator</mat-card-title>
-    <mat-card-content>
-      content
-    </mat-card-content>
+    <div [formGroup]="calcDateForm">
+      <mat-card-content>
+        <div class="container">
+          <mat-form-field hintLabel="Amount" appearance="fill">
+            <mat-label>Enter amount to calculate</mat-label>
+            <input type="number" formControlName="amount" matInput #input placeholder="Ex. 10000">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>From currency</mat-label>
+            <mat-select formControlName="fromCurrency">
+              <mat-option *ngFor="let cur of currencies" [value]="cur" >{{cur}}</mat-option>
+            </mat-select>
+            <mat-hint align="end">Currency from </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>To currency</mat-label>
+            <mat-select formControlName="toCurrency">
+              <mat-option *ngFor="let cur of currencies" [value]="cur" >{{cur}}</mat-option>
+            </mat-select>
+            <mat-hint align="end">Currency to </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="container">
+          <!--      date picker and button to select date and send request-->
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a table date</mat-label>
+            <input matInput formControlName="calcDate" [matDatepicker]="picker1" (dateInput)="addCalcDate('input', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </div>
     <mat-card-actions>
-
+      <button mat-raised-button color="primary" (click)="exchangeAmount()">Calculate</button>
     </mat-card-actions>
+    <div style="padding: 10px">
+        <mat-card-title  class="container" >
+          {{calcAmount}}
+        </mat-card-title>
+    </div>
   </mat-card>
 </div>
 
