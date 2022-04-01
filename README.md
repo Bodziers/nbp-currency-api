@@ -37,5 +37,6 @@ GET saves table with exchange rates for given date in resources static folder as
     /api/save/{date}
 
 GET calculate amount from one currency to another
+    
     /api/calculate/{date}/{fromCurrencyCode}/{toCurrencyCode}/{amount}
 
